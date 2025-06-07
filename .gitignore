@@ -1,0 +1,46 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+*.pdb
+*.egg-info/
+
+# Django-specific
+*.log
+*.pot
+*.pyc
+db.sqlite3
+media/
+staticfiles/
+*.mo
+
+# Environment & Secrets
+.env
+.env.*
+secrets.json
+config/settings/local.py
+env/
+
+# VSCode & other IDEs
+.vscode/
+.idea/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Migrations (optional – keep if you're tracking them)
+# */migrations/__pycache__/
+# */migrations/*.py[cod]
+# Uncomment below to ignore all migration files (not recommended for teams)
+# */migrations/
+
+# Node (if using for frontend)
+node_modules/
+build/
+dist/
+
+# Git
+*.orig
