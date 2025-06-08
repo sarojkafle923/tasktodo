@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.shortcuts import render
 from django.views.generic.edit import CreateView
 from django.contrib.auth.forms import UserCreationForm
@@ -14,3 +15,7 @@ class RegisterView(CreateView):
         if user is not None:
             login(self.request, user)
         return super().form_valid(form)
+    
+# ------ Task Views ------
+def list_tasks(request):
+    return HttpResponse("List my task")
