@@ -1,4 +1,5 @@
 from time import strftime
+from time import strftime
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.urls import reverse_lazy
