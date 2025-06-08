@@ -21,6 +21,16 @@ class RegisterView(CreateView):
             login(self.request, user)
         return super().form_valid(form)
 
+class LoginView(CreateView):
+    template_name = 'login.html'
+    success_url = reverse_lazy('tasks')
+
+    def form_valid(self, form):
+        user = form.save()
+        if user is not None:
+            login(self.request, user)
+        return super().form_valid(form)
+
 # ------ Task Views ------
 def list_task(request):
     tasks = Task.objects.all()
