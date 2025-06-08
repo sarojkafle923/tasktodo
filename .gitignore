@@ -17,6 +17,7 @@ staticfiles/
 *.mo
 
 # Environment & Secrets
+*.venv/
 .env
 .env.*
 secrets.json
