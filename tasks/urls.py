@@ -3,5 +3,5 @@ from tasks import views
 
 urlpatterns = [
     path('register/', views.RegisterView.as_view(), name='register'),
-    path('', views.list_tasks, name='tasks'),
+    path('', views.list_task, name='tasks'),
 ]
