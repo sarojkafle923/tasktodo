@@ -1,6 +1,20 @@
+from time import strftime
 from django.http import HttpResponse
 from django.shortcuts import render
+from .models import Task
 
 # Create your views here.
+# def list_tasks(request):
+#     data=Task.objects.all()
+#     return HttpResponse(data)
+
 def list_tasks(request):
-    return HttpResponse("List my task")
+    tasks = Task.objects.all()  # or filter(user=request.user) if user-specific
+    print(tasks)
+    # Build a plain text response from tasks
+    response_text = "Tasks List:\n"
+    for task in tasks:
+        response_text += f"- {task.name}: {task.description}\n"
+        response_text += f"- {task.created.strftime("%d-%m-%Y %I:%M %p")}\n"
+        response_text += f"- {'Task Completed' if task.isCompleted else 'Not Done'}"
+    return HttpResponse(response_text, content_type='text/plain')
