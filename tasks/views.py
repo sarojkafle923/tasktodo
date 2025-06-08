@@ -1,5 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render
+from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
@@ -8,7 +9,8 @@ from django.contrib.auth import login
 # ------ Authentication Views ------
 class RegisterView(CreateView):
     form_class = UserCreationForm
-    template_name = 'tasks/register.html'
+    template_name = 'register.html'
+    success_url = reverse_lazy('tasks')
     
     def form_valid(self, form):
         user = form.save()
