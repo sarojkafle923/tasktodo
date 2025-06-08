@@ -1,0 +1,122 @@
+/* Base Styling for TaskTodo Web App */
+:root {
+    --primary: #095cf7;
+    --secondary: #f5f7fa;
+    --accent: #ffb347;
+    --danger: #ff4f4f;
+    --success: #4fd18c;
+    --text: #222;
+    --muted: #888;
+    --radius: 10px;
+    --shadow: 0 2px 8px rgba(79, 140, 255, 0.08);
+    --font: 'Segoe UI', 'Roboto', Arial, sans-serif;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: var(--font);
+    background: linear-gradient(120deg, #f5f7fa 0%, #c3cfe2 100%);
+    color: var(--text);
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 700px;
+    margin: 40px auto;
+    background: #fff;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 2rem 2.5rem;
+}
+
+h1, h2, h3 {
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 0.5em;
+}
+
+a {
+    color: var(--primary);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+a:hover {
+    color: var(--accent);
+}
+
+button, .btn {
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius);
+    padding: 0.6em 1.2em;
+    font-size: 1em;
+    cursor: pointer;
+    box-shadow: 0 1px 4px rgba(79, 140, 255, 0.10);
+    transition: background 0.2s, box-shadow 0.2s;
+}
+button:hover, .btn:hover {
+    background: var(--accent);
+    box-shadow: 0 2px 8px rgba(255, 179, 71, 0.15);
+}
+
+input, textarea, select {
+    width: 100%;
+    padding: 0.7em;
+    border: 1px solid #e0e6ed;
+    border-radius: var(--radius);
+    margin-bottom: 1em;
+    font-size: 1em;
+    background: var(--secondary);
+    transition: border 0.2s;
+}
+input:focus, textarea:focus, select:focus {
+    border-color: var(--primary);
+    outline: none;
+}
+
+.task-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.task-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--secondary);
+    border-radius: var(--radius);
+    margin-bottom: 1em;
+    padding: 1em;
+    box-shadow: 0 1px 3px rgba(79, 140, 255, 0.05);
+    transition: background 0.2s;
+}
+.task-item.completed {
+    background: #e6f9f0;
+    text-decoration: line-through;
+    color: var(--muted);
+}
+.task-actions button {
+    margin-left: 0.5em;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+    background: #e0e6ed;
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 4px;
+}
+
+@media (max-width: 600px) {
+    .container {
+        padding: 1rem 0.5rem;
+    }
+    h1 {
+        font-size: 1.5em;
+    }
+}

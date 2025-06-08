@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>{% block title %}TaskTodo{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    {% block extra_head %}{% endblock %}
+  </head>
+
+  <body>
+    <!-- Header Block -->
+    {% block header %}
+      <header>
+        <h1>{% block header_title %}TaskTodo{% endblock %}</h1>
+        <p>{% block header_subtitle %}Your task manager{% endblock %}</p>
+      </header>
+    {% endblock %}
+
+    <!-- Navigation Block -->
+    <nav>{% block nav %}{% endblock %}</nav>
+
+    <!-- Main content -->
+    <main>{% block content %}{% endblock %}</main>
+
+    <!-- Footer Block -->
+    {% block footer %}
+      <footer>
+        <p>© {{ year|default:2025 }} TaskTodo</p>
+      </footer>
+    {% endblock %}
+  </body>
+</html>
