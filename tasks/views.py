@@ -9,7 +9,7 @@ from .models import Task
 #     return HttpResponse(data)
 
 def list_tasks(request):
-    tasks = Task.objects.all()  # or filter(user=request.user) if user-specific
+    tasks = Task.objects.all()
     print(tasks)
     # Build a plain text response from tasks
     response_text = "Tasks List:\n"
