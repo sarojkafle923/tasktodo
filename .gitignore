@@ -17,7 +17,8 @@ staticfiles/
 *.mo
 
 # Environment & Secrets
-.env
+*.env
+.venv
 .env.*
 secrets.json
 config/settings/local.py
