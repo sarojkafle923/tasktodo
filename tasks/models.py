@@ -8,4 +8,4 @@ class Task(models.Model):
     isCompleted = models.BooleanField(default=False)
     
     def __str__(self):
-        return self.name
+        return self.name + " " + str(self.created.date())
