@@ -1,16 +1,15 @@
 <!DOCTYPE html>
-<html class="h-full bg-white" lang="en">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <title>{% block title %}TaskTodo{% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     {% load static %}
-    <!-- <link rel="stylesheet" href="{% static 'css/style.css' %}" /> -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
     {% block extra_head %}{% endblock %}
   </head>
 
-  <body class="h-full">
+  <body>
     <!-- Header Block -->
     {% block header %}
       <header>
@@ -23,7 +22,7 @@
     {% block nav %}<nav></nav>{% endblock %}
 
     <!-- Main content -->
-    <main class="h-full">{% block content %}{% endblock %}</main>
+    <main>{% block content %}{% endblock %}</main>
 
     <!-- Footer Block -->
     {% block footer %}

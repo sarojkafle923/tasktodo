@@ -4,83 +4,94 @@
 {% block title %} Register | User {% endblock %}
 
 <!-- Styling for register page -->
-<!-- {% block extra_head %}
+{% block extra_head %}
+{% load static %}
 <link rel="stylesheet" href="{% static 'css/register.css' %}">
-{% endblock %} -->
+{% endblock %}
 {% block header %}{% endblock %}
 {% block nav %}{% endblock %}
 
 {% block content %}
-<div class="flex min-h-full">
-    <div class="flex flex-1 flex-col justify-center px-4 py-12 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
-        <div class="mx-auto w-full max-w-sm lg:w-96">
+<div id="register-page">
+    <div class="register-form-container">
+        <header>
+            <h1>Create an Account</h1>
+            <small>Join now to manage your task elegantly.</small>
+        </header>
+        <form class="user-registration-form" method="post" novalidate onsubmit="return validatePasswords()">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
             <div>
-                <img class="h-10 w-auto"
-                    src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600"
-                    alt="Your Company">
-                <h2 class="mt-8 text-2xl/9 font-bold tracking-tight text-gray-900">Register your interest</h2>
+                <label class="required" for="{{ form.first_name.id_for_label }}">First name</label>
+                {{ form.first_name }}
+                {{ form.first_name.errors }}
             </div>
-            <div class="mt-10">
-                <div>
-                    <form method="POST" class="space-y-6">
-                        {% csrf_token %}
-                        <div>
-                            <label for="email" class="block text-sm/6 font-medium text-gray-900">Email address</label>
-                            <div class="mt-2">
-                                {{ form.username }}
-                                {{ form.username.errors }}
-                                <input type="email" name="email" id="email" autocomplete="email" required
-                                    class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
-                            </div>
-                        </div>
 
-                        <div>
-                            <label for="password" class="block text-sm/6 font-medium text-gray-900">Password</label>
-                            <div class="mt-2">
-                                {{ form.password1 }}
-                                {{ form.password1.errors }}
-                                <input type="password" name="password" id="password" autocomplete="current-password"
-                                    required
-                                    class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
-                            </div>
-                        </div>
-
-                        <div>
-                            <label for="password" class="block text-sm/6 font-medium text-gray-900">Confirm Password</label>
-                            <div class="mt-2">
-                                {{ form.password2 }}
-                                {{ form.password2.errors }}
-                                <input type="password" name="password" id="password" autocomplete="current-password"
-                                    required
-                                    class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
-                            </div>
-                        </div>
-                        <div>
-                            <button type="submit"
-                                class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Create an account</button>
-                        </div>
-                    </form>
-                </div>
-                <div class="mt-10">
-                    <div class="mt-6 grid grid-cols-2 gap-4">
-                        <p class="flex w-full items-center justify-center gap-3 bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-gray-300 hover:bg-gray-50 focus-visible:ring-transparent">
-                            <span class="text-sm/6 font-semibold">Already have an account? </span>
-                        </p>
-                        <a href="{% url 'login' %}"
-                            class="flex w-full items-center justify-center gap-3 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus-visible:ring-transparent">
-                            Login Here
-                        </a>
-                    </div>
-                </div>
+            <div>
+                <label class="required" for="{{ form.last_name.id_for_label }}">Last name</label>
+                {{ form.last_name }}
+                {{ form.last_name.errors }}
             </div>
+
+            <div>
+                <label class="required" for="{{ form.email.id_for_label }}">Email</label>
+                {{ form.email }} <!-- already has required attr because it's in form field -->
+                {{ form.email.errors }}
+            </div>
+
+            <div>
+                <label class="required" for="{{ form.password1.id_for_label }}">Password</label>
+                {{ form.password1 }}
+                {{ form.password1.errors }}
+                <small class="info-text">Password must be ≥ 8 chars</small>
+            </div>
+
+            <div>
+                <label class="required" for="{{ form.password2.id_for_label }}">Confirm password</label>
+                {{ form.password2 }}
+                {{ form.password2.errors }}
+            </div>
+
+            <button type="submit" disabled>Create account</button>
+        </form>
+    </div>
+    <div class="register-image-container">
+        <div class="gradient-text-logo">
+            <span>T</span>
+            <span>O</span>
+            <span>D</span>
+            <span>O</span>
+        </div>
+        <div class="svg-logo">
+            <svg width="100" height="100" viewBox="0 0 100 100" style="margin-bottom: 15px;">
+                <defs>
+                    <linearGradient id="grad3" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#fa709a;stop-opacity:1" />
+                        <stop offset="50%" style="stop-color:#fee140;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#42a5f5;stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+                <rect x="10" y="10" width="80" height="80" rx="20" fill="url(#grad3)" />
+                <text x="50" y="70" font-family="Arial, sans-serif" font-size="60" font-weight="bold"
+                    text-anchor="middle" fill="white">T</text>
+            </svg>
         </div>
     </div>
-    <div class="relative hidden w-0 flex-1 lg:block">
-        <img class="absolute inset-0 size-full object-cover"
-            src="https://images.unsplash.com/photo-1496917756835-20cb06e75b4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1908&q=80"
-            alt="">
-    </div>
 </div>
+</div>
+<script>
+    // ----------  FRONT-END VALIDATION ----------
+    function validatePasswords() {
+        const p1 = document.getElementById("id_password1");
+        const p2 = document.getElementById("id_password2");
+        if (p1.value !== p2.value) {
+            alert("Passwords do not match.");
+            p2.focus();
+            return false;   // Prevent submission
+        }
+        return true;
+    }
+</script>
 {% endblock %}
 {% block footer %}
 {% endblock %}

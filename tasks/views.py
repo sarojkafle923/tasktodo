@@ -1,36 +1,22 @@
-from time import strftime
 from django.http import HttpResponse
-from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic.edit import CreateView
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import login
+from django.views.generic import FormView
+
+from tasks.forms import CustomUserCreationForm
 from .models import Task
 
 # Create your views here.
 
 # ------ Authentication Views ------
-class RegisterView(CreateView):
-    form_class = UserCreationForm
-    template_name = 'register.html'
-    success_url = reverse_lazy('tasks')
+class RegisterView(FormView):
+    template_name = "register.html"
+    form_class = CustomUserCreationForm
+    success_url = reverse_lazy("")          # or wherever
 
     def form_valid(self, form):
-        user = form.save()
-        if user is not None:
-            login(self.request, user)
+        form.save()                              # creates user
         return super().form_valid(form)
-
-class LoginView(CreateView):
-    template_name = 'login.html'
-    success_url = reverse_lazy('tasks')
-
-    def form_valid(self, form):
-        user = form.save()
-        if user is not None:
-            login(self.request, user)
-        return super().form_valid(form)
-
+    
 # ------ Task Views ------
 def list_task(request):
     tasks = Task.objects.all()
