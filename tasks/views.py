@@ -8,6 +8,8 @@ from django.contrib.auth import login
 from .models import Task
 
 # Create your views here.
+def home(request):
+    return render(request, 'home.html')
 
 # ------ Authentication Views ------
 class RegisterView(CreateView):
