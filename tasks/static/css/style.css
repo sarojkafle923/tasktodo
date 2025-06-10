@@ -113,6 +113,12 @@
   --screen-size-large: 1100px;
   --screen-size-medium: 900px;
   --screen-size-small: 800px;
+
+  --breakpoint-xs: 320px;
+  --breakpoint-sm: 480px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 992px;
+  --breakpoint-xl: 1200px;
   --screen-size-extra-small: 500px;
 
     height: 100%;
@@ -378,8 +384,6 @@ option {
     background: var(--rc-background-900);
     color: var(--rc-background-foreground);
 }
-
-@import "text.scss";
 
 ::-webkit-scrollbar {
     width: 18px;

@@ -1,3 +1,9 @@
+/* USED BY'
+* These styling is used by following html files:
+* - tasks/templates/register.html
+* - tasks/templates/login.html
+*/
+
 #register-page {
     color: var(--rc-background-foreground);
     font-family: var(--font_default);
@@ -5,7 +11,7 @@
     height: 100vh;
     display: grid;
     grid-template-rows: 1fr;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 3fr;
     grid-template-areas: "form image";
     column-gap: 5px;
     background-color: var(--rc-background-800);
@@ -29,6 +35,7 @@ header {
 
 header h1 {
     font-size: 32px;
+    font-weight: 600;
     color: var(--rc-primary-primary);
 }
 
@@ -37,9 +44,10 @@ header small {
     color: var(--rc-background-400);
 }
 
-.info-text {
+.error-message {
+    color: var(--rc-danger-primary);
     font-size: 14px;
-    color: var(--rc-background-400);
+    line-height: 1.5;
 }
 
 .user-registration-form {
@@ -104,6 +112,30 @@ header small {
     cursor: not-allowed;
 }
 
+.user-registration-form .form-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.user-registration-form .form-footer a {
+    font-style: italic;
+    text-decoration: underline;
+}
+
+.user-registration-form .form-footer p,
+.user-registration-form .form-footer p a {
+    font-size: 14px;
+    color: var(--rc-foreground-800);
+}
+
+.user-registration-form .form-footer p a:hover {
+    font-weight: 800;
+    color: var(--rc-primary-primary);
+    transform: scale(1.05);
+}
+
 .register-image-container {
     grid-area: image;
     display: flex;
@@ -116,24 +148,6 @@ header small {
     border: none;
     border-radius: 15px;
 }
-
-/* .gradient-text-logo {
-    font-size: 5rem;
-    font-weight: 900;
-    background: linear-gradient(
-        45deg,
-        #ff6b6b 0%,
-        #ffa726 25%,
-        #66bb6a 50%,
-        #42a5f5 75%,
-        #ab47bc 100%
-    );
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-} */
 
 .gradient-text-logo {
   display: flex;
@@ -177,6 +191,28 @@ header small {
     animation: pop 2s forwards ease-out, shine 4s infinite ease-in-out;
 }
 
+.loader {
+    position: relative;
+    margin: 0 5px;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ad0909;
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+} 
+
 /* POP-UP ANIMATION */
 @keyframes pop {
   to {
@@ -196,4 +232,184 @@ header small {
   100% {
     background-position: 0% 50%;
   }
+}
+
+/* 992px - 1199px */
+@media (max-width: 1199px) and (min-width: 992px) {
+    .gradient-text-logo {
+        font-size: 4.5rem;
+        letter-spacing: 18px;
+    }
+    
+    .register-image-container {
+        padding: 1.5rem;
+    }
+    
+    .user-registration-form {
+        padding: 1.5rem;
+    }
+}
+
+/* 768px - 991px */
+@media (max-width: 991px) and (min-width: 768px) {
+    #register-page {
+        grid-template-rows: 1fr auto;
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "form"
+            "image";
+        height: 100vh;
+    }
+
+    .register-form-container {
+        grid-area: form;
+        padding: 1rem;
+        background: linear-gradient(200deg, #a8caba 0%, #5d4e75 25%, #b16fa4 50%, #f3d2c1 75%, #fef9d7 100%);
+    }
+
+    .register-image-container {
+        grid-area: image;
+        display: none;
+    }
+    
+    .gradient-text-logo {
+        font-size: 4rem;
+        letter-spacing: 15px;
+    }
+    
+    header h1 {
+        font-size: 28px;
+        color: var(--rc-accent-foreground);
+    }
+
+    .user-registration-form  label {
+        font-size: 16px;
+        color: var(--rc-primary-800);
+    }
+
+    .error-message {
+        font-size: 12px;
+    }
+}
+
+/* 480px - 767px */
+@media (max-width: 767px) and (min-width: 480px) {
+    #register-page {
+        grid-template-rows: 1fr;
+        grid-template-columns: 1fr;
+        grid-template-areas: "form";
+        height: 100vh;
+        background: linear-gradient(200deg, #a8caba 0%, #5d4e75 25%, #b16fa4 50%, #f3d2c1 75%, #fef9d7 100%);
+    }
+
+    .register-image-container {
+        display: none;
+    }
+
+    .gradient-text-logo {
+        font-size: 3.5rem;
+        letter-spacing: 12px;
+    }
+    
+    .user-registration-form {
+        padding: 1.25rem;
+    }
+    
+    header h1 {
+        font-size: 28px;
+        color: var(--rc-accent-foreground);
+    }
+
+    .user-registration-form  label {
+        font-size: 16px;
+        color: var(--rc-primary-800);
+    }
+
+    .error-message {
+        font-size: 12px;
+    }
+}
+
+/* 320px - 479px */
+@media (max-width: 479px) and (min-width: 320px) {
+    #register-page {
+        grid-template-rows: 1fr;
+        grid-template-columns: 1fr;
+        grid-template-areas: "form";
+        background: linear-gradient(200deg, #a8caba 0%, #5d4e75 25%, #b16fa4 50%, #f3d2c1 75%, #fef9d7 100%);
+    }
+
+    .register-image-container {
+        display: none;
+    }
+
+    .gradient-text-logo {
+        font-size: 2.5rem;
+        letter-spacing: 8px;
+        gap: 0.25rem;
+    }
+    
+    .user-registration-form {
+        padding: 1rem;
+    }
+    
+    header h1 {
+        font-size: 24px;
+    }
+    
+    .user-registration-form input {
+        padding: 0.4rem;
+        font-size: 13px;
+    }
+    
+    .user-registration-form button {
+        padding: 0.6rem;
+        font-size: 15px;
+    }
+
+    header h1 {
+        font-size: 28px;
+        color: var(--rc-accent-foreground);
+    }
+
+    .user-registration-form  label {
+        font-size: 16px;
+        color: var(--rc-primary-800);
+    }
+
+    .error-message {
+        font-size: 12px;
+    }
+}
+
+/* Below 320px */
+@media (max-width: 319px) {
+    #register-page {
+        grid-template-rows: 1fr;
+        grid-template-columns: 1fr;
+        grid-template-areas: "form";
+    }
+
+    .register-image-container {
+        display: none;
+    }
+
+    .gradient-text-logo {
+        font-size: 2rem;
+        letter-spacing: 5px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .user-registration-form {
+        padding: 0.75rem;
+    }
+    
+    header h1 {
+        font-size: 22px;
+    }
+    
+    .user-registration-form label {
+        font-size: 14px;
+    }
 }

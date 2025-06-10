@@ -18,41 +18,56 @@
             <h1>Create an Account</h1>
             <small>Join now to manage your task elegantly.</small>
         </header>
-        <form class="user-registration-form" method="post" novalidate onsubmit="return validatePasswords()">
+        <form class="user-registration-form" method="post">
             {% csrf_token %}
             {{ form.non_field_errors }}
             <div>
                 <label class="required" for="{{ form.first_name.id_for_label }}">First name</label>
                 {{ form.first_name }}
+                <div id="first-name-error" class="error-message"></div>
                 {{ form.first_name.errors }}
             </div>
 
             <div>
                 <label class="required" for="{{ form.last_name.id_for_label }}">Last name</label>
                 {{ form.last_name }}
+                <div id="last-name-error" class="error-message"></div>
                 {{ form.last_name.errors }}
             </div>
 
             <div>
                 <label class="required" for="{{ form.email.id_for_label }}">Email</label>
                 {{ form.email }} <!-- already has required attr because it's in form field -->
-                {{ form.email.errors }}
+                <div id="email-error" class="error-message"></div>
+                {% for error in form.email.errors %}
+                    <div class="error-message">{{ error }}</div>
+                {% endfor %}
             </div>
 
             <div>
                 <label class="required" for="{{ form.password1.id_for_label }}">Password</label>
                 {{ form.password1 }}
-                {{ form.password1.errors }}
-                <small class="info-text">Password must be ≥ 8 chars</small>
+                <div id="password1-error" class="error-message"></div>
+                {% for error in form.password1.errors %}
+                    <div class="error-message">{{ error }}</div>
+                {% endfor %}
             </div>
 
             <div>
                 <label class="required" for="{{ form.password2.id_for_label }}">Confirm password</label>
                 {{ form.password2 }}
-                {{ form.password2.errors }}
+                <div id="password2-error" class="error-message"></div>
+                {% for error in form.password2.errors %}
+                    <div class="error-message">{{ error }}</div>
+                {% endfor %}
             </div>
-
-            <button type="submit" disabled>Create account</button>
+            <button id="submit-button" type="submit" disabled>
+                Create account
+                <span id="loading-spinner" class="loader"></span>
+            </button>
+            <div class="form-footer">
+                <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
+            </div>
         </form>
     </div>
     <div class="register-image-container">
@@ -80,17 +95,148 @@
 </div>
 </div>
 <script>
+    'use strict';
     // ----------  FRONT-END VALIDATION ----------
-    function validatePasswords() {
-        const p1 = document.getElementById("id_password1");
-        const p2 = document.getElementById("id_password2");
-        if (p1.value !== p2.value) {
-            alert("Passwords do not match.");
-            p2.focus();
-            return false;   // Prevent submission
+    // display error message if email isn't valid
+    document.getElementById("{{ form.email.id_for_label }}").addEventListener('input', function() {
+        const emailError = document.getElementById("email-error");
+        const email = this.value;
+        if (!email) {
+            emailError.textContent = "Email is required.";
+            return;
+        } 
+        
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(email)) {
+            emailError.textContent = "Please enter a valid email address.";
+        } else {
+            emailError.textContent = ""; // clear error if valid;
         }
-        return true;
+        updateSubmitButtonState()
+    });
+
+    // display error message if first name isn't valid
+    document.getElementById("{{ form.first_name.id_for_label }}").addEventListener('input', function() {
+        this.value = this.value.replace(/[^a-zA-Z]/g, ''); // Allow only letters
+        const firstNameError = document.getElementById("first-name-error");
+        if (this.value.length < 2) {
+            firstNameError.textContent = "First name must be at least 2 characters.";
+        } else {
+            firstNameError.textContent = ""; // clear error if valid
+        }
+        updateSubmitButtonState();
+    });
+
+    // display error message if last name isn't valid
+    document.getElementById("{{ form.last_name.id_for_label }}").addEventListener('input', function() {
+        this.value = this.value.replace(/[^a-zA-Z]/g, ''); // Allow only letters
+        const lastNameError = document.getElementById("last-name-error");
+        if (this.value.length < 2) {
+            lastNameError.textContent = "Last name must be at least 2 characters.";
+        } else {
+            lastNameError.textContent = ""; // clear error if valid
+        }
+        updateSubmitButtonState();
+    });
+
+    // display error message if password isn't valid
+    document.getElementById("{{ form.password1.id_for_label }}").addEventListener('input', function() {
+        const password1Error = document.getElementById("password1-error");
+        if (!this.value) {
+            password1Error.textContent = "Password is required.";
+            return;
+        }
+
+        if (this.value.length < 8) {
+            password1Error.textContent = "Password must be at least 8 characters.";
+        } else {
+            password1Error.textContent = ""; // clear error if valid
+        }
+
+        updateSubmitButtonState();
+    });
+
+    // display error message if confirm password isn't valid
+    document.getElementById("{{ form.password2.id_for_label }}").addEventListener('input', function() {
+        const password2Error = document.getElementById("password2-error");
+        if (!this.value) {
+            password2Error.textContent = "Confirm password is required.";
+            return;
+        }
+
+        const password1 = document.getElementById("{{ form.password1.id_for_label }}").value;
+        if (this.value !== password1) {
+            password2Error.textContent = "Passwords do not match.";
+        } else {
+            password2Error.textContent = ""; // clear error if valid
+        }
+        updateSubmitButtonState();
+    });
+
+    // add the disable attribute to the submit button if there are errors
+    function isValidForm() {
+        const email = document.getElementById("{{ form.email.id_for_label }}").value;
+        const firstName = document.getElementById("{{ form.first_name.id_for_label }}").value;
+        const lastName = document.getElementById("{{ form.last_name.id_for_label }}").value;
+        const password1 = document.getElementById("{{ form.password1.id_for_label }}").value;
+        const password2 = document.getElementById("{{ form.password2.id_for_label }}").value;
+
+        // Check if required fields are empty
+        if (!email || !firstName || !lastName || !password1 || !password2) {
+            return false;
+        }
+
+        const emailError = document.getElementById("email-error").textContent;
+        const firstNameError = document.getElementById("first-name-error").textContent;
+        const lastNameError = document.getElementById("last-name-error").textContent;
+        const password1Error = document.getElementById("password1-error").textContent;
+        const password2Error = document.getElementById("password2-error").textContent;
+
+        if (emailError || firstNameError || lastNameError || password1Error || password2Error) {
+            return false; // prevent form submission
+        }
+
+        if (password1 !== password2) {
+            alert("Passwords do not match.");
+            return false; // prevent form submission
+        }
+
+        return true; // allow form submission
     }
+
+    // update the submit button state
+    function updateSubmitButtonState() {
+        const submitButton = document.querySelector('.user-registration-form button[type="submit"]');
+        submitButton.disabled = !isValidForm();
+    }
+
+    // Initial check on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        updateSubmitButtonState(); // Initial check on page load
+    });
+
+    document.querySelector(".user-registration-form").addEventListener("submit", function(event) {
+        // This function runs right before the browser submits the form.
+        // We do NOT prevent the default action.
+
+        // Show loading UI
+        const submitButton = document.getElementById("submit-button");
+        const loadingSpinner = document.getElementById("loading-spinner");
+
+        // Disable the button to prevent multiple submissions
+        submitButton.disabled = true;
+        // Make the spinner visible
+        loadingSpinner.style.display = "inline-block";
+
+        // The form will now submit to the server as normal.
+        // The page will navigate away, so we don't need to hide the spinner.
+    });
+
+    // Hide spinner if the page reloads or form error occurs
+    window.addEventListener("load", function() {
+        document.getElementById("loading-spinner").style.display = "none";
+    });
+
 </script>
 {% endblock %}
 {% block footer %}

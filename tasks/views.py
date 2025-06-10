@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.urls import reverse_lazy
 from django.views.generic import FormView
-
+from django.contrib import messages
 from tasks.forms import CustomUserCreationForm
 from .models import Task
 
@@ -11,11 +11,19 @@ from .models import Task
 class RegisterView(FormView):
     template_name = "register.html"
     form_class = CustomUserCreationForm
-    success_url = reverse_lazy("")          # or wherever
-
+    success_url = reverse_lazy("tasks")
+    
     def form_valid(self, form):
-        form.save()                              # creates user
+        # this method is called when the form data has been POSTed.
+        form.save()  # Save the new user to the database
+        messages.success(self.request, "Registration successful! You can now log in.")
         return super().form_valid(form)
+    
+    def form_invalid(self, form):
+        """Handle invalid form submissions"""
+        messages.error(self.request, "There were errors in your form. Please correct them and try again.")
+        # For normal form submission
+        return super().form_invalid(form)
     
 # ------ Task Views ------
 def list_task(request):
