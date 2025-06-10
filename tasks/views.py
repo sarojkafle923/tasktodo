@@ -22,6 +22,7 @@ class RegisterView(CreateView):
         return super().form_valid(form)
 
 class LoginView(CreateView):
+    form_class = UserCreationForm
     template_name = 'login.html'
     success_url = reverse_lazy('tasks')
 
