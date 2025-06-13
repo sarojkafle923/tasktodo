@@ -4,6 +4,6 @@
     color: var(--rc-background-foreground);
     font-size: 14px;
     line-height: 1.5;
-    border: 1px solid var(--rc-border-color);
+    border: 1px solid var(--rc-background-400);
     border-radius: 5px;
 }

@@ -6,7 +6,7 @@
 
 #register-page {
     color: var(--rc-background-foreground);
-    font-family: var(--font_default);
+    font-family: var(--font_default), sans-serif;
     font-size: 14px;
     height: 100vh;
     display: grid;

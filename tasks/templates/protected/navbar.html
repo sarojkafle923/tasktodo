@@ -1,0 +1,12 @@
+<nav class="navbar">
+    <ul class="navbar-list">
+        <li class="navbar-item"><a href="{% url routes.PROTECTED.HOME.url_name %}" class="navbar-link">Home</a></li>
+        <li class="navbar-item"><a href="{% url routes.PROTECTED.TASKS.LIST.url_name %}" class="navbar-link">Tasks</a></li>
+        <li class="navbar-item navbar-logout">
+            <form id="logout-form" method="post" action="{% url routes.AUTH.LOGOUT.url_name %}">
+                {% csrf_token %}
+                <button type="submit" class="navbar-logout-btn">Logout</button>
+            </form>
+        </li>
+    </ul>
+</nav>

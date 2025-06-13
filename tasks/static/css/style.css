@@ -92,14 +92,14 @@
     --rc-warning-900: #ffcc5c;
 
     /* Shadows */
-  --shadow-default: 0 2.8px 2.2px rgb(0 0 0 / 1%), 
-                    0 6.7px 5.3px rgb(0 0 0 / 3%), 
-                    0 12.5px 10px rgb(0 0 0 / 1%), 
-                    0 22.3px 17.9px rgb(0 0 0 / 1%), 
-                    0 41.8px 33.4px rgb(0 0 0 / 2%), 
+  --shadow-default: 0 3px 2px rgb(0 0 0 / 1%),
+                    0 7px 5px rgb(0 0 0 / 3%),
+                    0 13px 10px rgb(0 0 0 / 1%),
+                    0 22px 18px rgb(0 0 0 / 1%),
+                    0 42px 33px rgb(0 0 0 / 2%),
                     0 100px 80px rgb(0 0 0 / 1%);
-  --shadow-short: 0 1.6px 3.6px 0 rgba(0, 0, 0, 0.132), 
-                  0 0.3px 0.9px 0 rgba(0, 0, 0, 0.108);
+  --shadow-short: 0 2px 4px 0 rgba(0, 0, 0, 0.132),
+                  0 0px 1px 0 rgba(0, 0, 0, 0.108);
 
   /* Spacing and Radius */
   --margin-default: 0.5rem;
@@ -292,7 +292,7 @@ hr {
     display: block;
     height: 1px;
     border: 0;
-    border-top: 1px solid var(--rc-background-color);
+    border-top: 1px solid var(--rc-background-400);
     border-top-color: var(--rc-background-primary);
     margin: 1em 0;
     padding: 0;
@@ -309,7 +309,8 @@ body {
 }
 
 body {
-    font-family: var(--font_default);
+    margin: 2px;
+    font-family: var(--font_default), sans-serif;
     font-size: 12px;
     background-color: var(--rc-background-800);
     color: var(--rc-background-foreground);

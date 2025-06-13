@@ -1,6 +1,8 @@
-from django.http import HttpResponse
+from django.shortcuts import render
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
+
+from tasks.constants import RouteGroup
 from tasks.models import Task
 
 class ListTaskView(LoginRequiredMixin, View):
@@ -14,6 +16,7 @@ class ListTaskView(LoginRequiredMixin, View):
         response_text += f"- {'Task Completed' if task.completed else 'Not Done'}"
         response_text += "\n_______________________________________________________\n"
 
-    def get(self, request):
+    @staticmethod
+    def get(request):
         """Render the tasks page"""
-        return HttpResponse(self.response_text, content_type="text/plain")
+        return render(request, RouteGroup.PROTECTED.TASKS.LIST.template_path)

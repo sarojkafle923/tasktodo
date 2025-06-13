@@ -10,6 +10,9 @@
   </head>
 
   <body>
+    <!-- Navigation Block -->
+    {% block nav %}<nav></nav>{% endblock %}
+
     <!-- Header Block -->
     {% block header %}
       <header>
@@ -17,9 +20,6 @@
         <p>{% block header_subtitle %}Your task manager{% endblock %}</p>
       </header>
     {% endblock %}
-
-    <!-- Navigation Block -->
-    {% block nav %}<nav></nav>{% endblock %}
 
     <!-- Main content -->
     <main>{% block content %}{% endblock %}</main>

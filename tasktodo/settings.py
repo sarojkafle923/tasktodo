@@ -63,7 +63,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.debug',
-                'tasks.context_processors.routes_context'
+                'tasks.context_processors.routes_context',
             ],
         },
     },

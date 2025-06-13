@@ -1,0 +1,84 @@
+/* Attractive Navbar Styles */
+.navbar {
+    width: 100%;
+    background: linear-gradient(90deg, var(--rc-primary-700) 0%, var(--rc-accent-500) 100%);
+    box-shadow: var(--shadow-short);
+    padding: 0.5rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font_default), sans-serif;
+}
+
+.navbar-list {
+    display: flex;
+    width: 100%;
+    gap: 2.5rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.navbar-item {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-logout {
+    margin-left: auto;
+}
+
+.navbar-link {
+    color: var(--rc-primary-foreground);
+    font-size: 1.1rem;
+    font-weight: 600;
+    padding: 0.5rem 1.2rem;
+    border-radius: 6px;
+    transition: background var(--transition-time), color var(--transition-time), transform var(--transition-time);
+    letter-spacing: 1px;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.08);
+}
+
+.navbar-link:hover,
+.navbar-link:focus {
+    background: var(--rc-accent-400);
+    color: var(--rc-accent-foreground);
+    transform: scale(1.07);
+    text-decoration: none;
+}
+
+.navbar-logout-btn {
+    background: var(--rc-danger-primary);
+    color: var(--rc-danger-foreground);
+    border: none;
+    border-radius: 6px;
+    padding: 0.5rem 1.2rem;
+    font-size: 1.05rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background var(--transition-time), transform var(--transition-time);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+    margin-left: 0.5rem;
+}
+
+.navbar-logout-btn:hover,
+.navbar-logout-btn:focus {
+    background: var(--rc-danger-700);
+    color: var(--rc-danger-foreground);
+    transform: scale(1.07);
+}
+
+@media (max-width: 700px) {
+    .navbar {
+        padding: 0.5rem 0.5rem;
+    }
+    .navbar-list {
+        gap: 1rem;
+    }
+    .navbar-link, .navbar-logout-btn {
+        font-size: 1rem;
+        padding: 0.4rem 0.7rem;
+    }
+}

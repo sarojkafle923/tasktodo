@@ -4,7 +4,12 @@
 {% block title %}Hub | TaskTodo{% endblock %}
 
 {% block extra_head %}
-    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+{% endblock %}
+
+{% block nav %}
+{% include './navbar.html' %}
 {% endblock %}
 
 {% block header %}
@@ -12,20 +17,6 @@
         <h1>Welcome to TaskTodo</h1>
         <p>Your personal task management hub</p>
     </header>
-{% endblock %}
-
-{% block nav %}
-    <nav>
-        <ul>
-            <li><a href={% url routes.PROTECTED.TASKS.LIST.url_name %}>Tasks</a></li>
-            <li>
-                <form id="logout-form" method="post" action="{% url routes.AUTH.LOGOUT.url_name %}">
-                    {% csrf_token %}
-                    <button type="submit">Logout</button>
-                </form>
-            </li>
-        </ul>
-    </nav>
 {% endblock %}
 
 {% block content %}
