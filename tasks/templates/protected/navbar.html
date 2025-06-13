@@ -1,8 +1,25 @@
 <nav class="navbar">
+    <div class="svg-logo">
+        <svg width="100" height="100" viewBox="0 0 100 100" style="margin-bottom: 15px;">
+            <defs>
+                <linearGradient id="grad3" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style="stop-color:#fa709a;stop-opacity:1" ></stop>
+                    <stop offset="50%" style="stop-color:#fee140;stop-opacity:1" ></stop>
+                    <stop offset="100%" style="stop-color:#42a5f5;stop-opacity:1" ></stop>
+                </linearGradient>
+            </defs>
+            <rect x="10" y="10" width="80" height="80" rx="20" fill="url(#grad3)" ></rect>
+            <text x="50" y="70" font-family="Arial, sans-serif" font-size="60" font-weight="bold"
+                text-anchor="middle" fill="white">T</text>
+        </svg>
+    </div>
+    <div class="navbar-toggle">
+        <span class="material-icons">menu</span>
+    </div>
     <ul class="navbar-list">
-        <li class="navbar-item"><a href="{% url routes.PROTECTED.HOME.url_name %}" class="navbar-link">Home</a></li>
-        <li class="navbar-item"><a href="{% url routes.PROTECTED.TASKS.LIST.url_name %}" class="navbar-link">Tasks</a></li>
-        <li class="navbar-item navbar-logout">
+        <li class="navbar-item" data-icon="home"><a href="{% url routes.PROTECTED.HOME.url_name %}" class="navbar-link">Home</a></li>
+        <li class="navbar-item" data-icon="list_alt"><a href="{% url routes.PROTECTED.TASKS.LIST.url_name %}" class="navbar-link">Tasks</a></li>
+        <li class="navbar-item navbar-logout" data-icon="logout">
             <form id="logout-form" method="post" action="{% url routes.AUTH.LOGOUT.url_name %}">
                 {% csrf_token %}
                 <button type="submit" class="navbar-logout-btn">Logout</button>
@@ -10,3 +27,103 @@
         </li>
     </ul>
 </nav>
+
+<script>
+    'use strict';
+    document.addEventListener('DOMContentLoaded', function() {
+        // Create the toggle button dynamically
+        const navbar = document.querySelector('.navbar');
+        const mainContent = document.querySelector('main');
+
+        // Create toggle button if it doesn't exist
+        let navbarToggle = document.querySelector('.navbar-toggle');
+        if (!navbarToggle) {
+            navbarToggle = document.createElement('div');
+            navbarToggle.className = 'navbar-toggle';
+            navbarToggle.innerHTML = '<span class="material-icons">menu</span>';
+            // Changed from inserting into main to body for better positioning
+            document.body.appendChild(navbarToggle);
+        }
+
+        // Hamburger menu toggle functionality
+        navbarToggle.addEventListener('click', function() {
+            navbar.classList.toggle('navbar-expanded');
+            document.body.classList.toggle('menu-open');
+
+             // Toggle between hamburger and close icons
+            const iconElement = this.querySelector('.material-icons');
+            if (navbar.classList.contains('navbar-expanded')) {
+                iconElement.textContent = 'close';
+            } else {
+                iconElement.textContent = 'menu';
+            }
+        });
+
+        // Get the logout navbar item
+        const logoutItem = document.querySelector('.navbar-item.navbar-logout');
+
+        // Add click event listener to the logout item
+        if (logoutItem) {
+            logoutItem.addEventListener('click', function(event) {
+                // Prevent default link behavior
+                event.preventDefault();
+
+                // Find the logout form within this item and submit it
+                const logoutForm = this.querySelector('#logout-form');
+                if (logoutForm) {
+                    logoutForm.submit();
+                }
+            });
+        }
+
+        // Close menu when clicking on a link (for mobile)
+        const navbarLinks = document.querySelectorAll('.navbar-link');
+        navbarLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                if (window.innerWidth <= 768) {
+                    navbar.classList.remove('navbar-expanded');
+                    document.body.classList.remove('menu-open');
+                }
+            });
+        });
+
+        // Close menu when clicking on the overlay
+        document.body.addEventListener('click', function(event) {
+            // If menu is open and click is not on navbar or its children
+            if (document.body.classList.contains('menu-open') &&
+                !navbar.contains(event.target) &&
+                !navbarToggle.contains(event.target)) {
+                navbar.classList.remove('navbar-expanded');
+                document.body.classList.remove('menu-open');
+
+                // Update icon to menu when closing through overlay click
+                const iconElement = navbarToggle.querySelector('.material-icons');
+                if (iconElement) {
+                    iconElement.textContent = 'menu';
+                }
+            }
+        });
+
+         // Mark active page in navbar
+        function setActivePage() {
+            const currentPath = window.location.pathname;
+            const navLinks = document.querySelectorAll('.navbar-link');
+
+            navLinks.forEach(link => {
+                const linkPath = link.getAttribute('href');
+                const parentItem = link.closest('.navbar-item');
+
+                // Check if current path matches this link or if it's a sub-path
+                if (currentPath === linkPath ||
+                    (linkPath !== '/' && currentPath.startsWith(linkPath))) {
+                    parentItem.classList.add('active');
+                } else {
+                    parentItem.classList.remove('active');
+                }
+            });
+        }
+
+        // Set active page on load
+        setActivePage();
+    });
+</script>

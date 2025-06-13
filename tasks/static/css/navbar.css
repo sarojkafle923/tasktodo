@@ -1,84 +1,178 @@
-/* Attractive Navbar Styles */
 .navbar {
-    width: 100%;
-    background: linear-gradient(90deg, var(--rc-primary-700) 0%, var(--rc-accent-500) 100%);
-    box-shadow: var(--shadow-short);
-    padding: 0.5rem 2rem;
+    grid-area: navbar;
+    background: linear-gradient(200deg, #a8caba 0%, #5d4e75 25%, #b16fa4 50%, #f3d2c1 75%, #fef9d7 100%);
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    padding: 2rem 0;
+    color: white;
+    height: 100%;
+    position: fixed;
+    width: 220px;
+    top: 0;
+    bottom: 0;
+    left: 0;
+}
+.navbar .svg-logo {
+    display: flex;
     justify-content: center;
-    font-family: var(--font_default), sans-serif;
 }
 
 .navbar-list {
-    display: flex;
-    width: 100%;
-    gap: 2.5rem;
-    list-style: none;
-    margin: 0;
+   list-style: none;
     padding: 0;
-    align-items: center;
-    justify-content: flex-start;
+    margin: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
-
 .navbar-item {
     display: flex;
-    align-items: center;
+    padding: 0;  /* Remove padding from item */
+    margin: 0.25rem 0;
+    position: relative;
+    cursor: pointer;
 }
 
-.navbar-logout {
-    margin-left: auto;
+
+.navbar-item::before {
+    font-family: 'Material Icons', sans-serif;
+    content: attr(data-icon);
+    font-size: 20px;
+    transition: all 0.3s ease;
+    position: absolute;
+    left: 1.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none; /* Make sure icon doesn't interfere with clicks */
 }
 
-.navbar-link {
-    color: var(--rc-primary-foreground);
-    font-size: 1.1rem;
-    font-weight: 600;
-    padding: 0.5rem 1.2rem;
-    border-radius: 6px;
-    transition: background var(--transition-time), color var(--transition-time), transform var(--transition-time);
-    letter-spacing: 1px;
-    text-shadow: 0 1px 2px rgba(0,0,0,0.08);
+.navbar-item.active::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 4px;
+    background-color: var(--rc-accent-primary);
+    border-radius: 2px 0 0 2px;
+}
+
+.navbar-link,
+.navbar-logout-btn {
+    width: 100%;
+    display: block;
+    padding: 1rem 1.5rem 1rem 3.5rem; /* Add left padding to make room for icon */
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 16px;
+    color: white;
+    border-radius: 0 8px 8px 0;
+}
+
+.navbar-item.active,
+.navbar-item:hover {
+    background: rgba(255, 255, 255, 0.1);
 }
 
 .navbar-link:hover,
-.navbar-link:focus {
-    background: var(--rc-accent-400);
-    color: var(--rc-accent-foreground);
-    transform: scale(1.07);
-    text-decoration: none;
+.navbar-logout-btn:hover {
+    background: transparent; /* Remove background from link to avoid conflict */
 }
 
 .navbar-logout-btn {
-    background: var(--rc-danger-primary);
-    color: var(--rc-danger-foreground);
     border: none;
-    border-radius: 6px;
-    padding: 0.5rem 1.2rem;
-    font-size: 1.05rem;
-    font-weight: 600;
+    background-color: transparent;
+    text-align: left;
     cursor: pointer;
-    transition: background var(--transition-time), transform var(--transition-time);
-    box-shadow: 0 1px 4px rgba(0,0,0,0.07);
-    margin-left: 0.5rem;
 }
 
-.navbar-logout-btn:hover,
-.navbar-logout-btn:focus {
-    background: var(--rc-danger-700);
-    color: var(--rc-danger-foreground);
-    transform: scale(1.07);
+.navbar-item.navbar-logout {
+    color: var(--rc-danger-800);
+    margin-top: auto;
 }
 
-@media (max-width: 700px) {
+.navbar-logout-btn {
+    color: var(--rc-danger-800);
+}
+
+.navbar-toggle {
+    display: none;
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    background: var(--rc-primary-primary);
+    color: white;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 1001;
+    box-shadow: var(--shadow-short);
+    transition: all 0.3s ease;
+}
+
+.navbar-toggle:hover {
+    background: var(--rc-primary-800);
+    transform: scale(1.05);
+}
+
+/* Body class for when menu is open */
+body.menu-open {
+    overflow: hidden;
+}
+
+.navbar.navbar-expanded .navbar-toggle {
+    position: absolute;
+    top: 1rem;
+    left: unset;
+    right: 1rem;
+    background-color: transparent;
+}
+
+/* Media query for mobile view */
+@media (max-width: 768px) {
+    /* Fix position of navbar toggle button */
+    .navbar-toggle {
+        display: flex;
+        position: fixed; /* Changed from absolute to fixed */
+        top: 1rem;
+        left: 1rem;
+        z-index: 1002; /* Increased z-index to ensure visibility */
+        background: var(--rc-primary-primary);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+
+    /* Make sure the navbar appears above content */
     .navbar {
-        padding: 0.5rem 0.5rem;
+        position: fixed;
+        left: -280px;
+        top: 0;
+        bottom: 0;
+        width: 250px;
+        z-index: 1001;
+        transition: left 0.3s ease;
     }
-    .navbar-list {
-        gap: 1rem;
+
+    /* Adjust main content to make room for hamburger */
+    main {
+        padding-top: 4rem; /* Increased padding to make room for the hamburger */
+        width: 100%;
+        position: relative;
+        margin-left: 0;
     }
-    .navbar-link, .navbar-logout-btn {
-        font-size: 1rem;
-        padding: 0.4rem 0.7rem;
+
+    .navbar.navbar-expanded {
+        padding-top: 4rem;
+    }
+}
+
+/* Adjustments for very small screens */
+@media (max-width: 480px) {
+    .navbar {
+        width: 85%;
+        max-width: 280px;
     }
 }

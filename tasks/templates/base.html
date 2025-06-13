@@ -6,20 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     {% block extra_head %}{% endblock %}
   </head>
 
   <body>
     <!-- Navigation Block -->
-    {% block nav %}<nav></nav>{% endblock %}
+    {% block nav %}{% endblock %}
 
     <!-- Header Block -->
-    {% block header %}
-      <header>
-        <h1>{% block header_title %}TaskTodo{% endblock %}</h1>
-        <p>{% block header_subtitle %}Your task manager{% endblock %}</p>
-      </header>
-    {% endblock %}
+    {% block header %}{% endblock %}
 
     <!-- Main content -->
     <main>{% block content %}{% endblock %}</main>
