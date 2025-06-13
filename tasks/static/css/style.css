@@ -309,7 +309,6 @@ body {
 }
 
 body {
-    margin: 2px;
     font-family: var(--font_default), sans-serif;
     font-size: 12px;
     background-color: var(--rc-background-800);
