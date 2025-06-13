@@ -128,8 +128,9 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Configure the login and logout URLs
-LOGIN_REDIRECT_URL = 'tasks'  # Redirect to tasks page after login
-LOGOUT_REDIRECT_URL = 'tasks'  # Redirect to login page after logout
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'home'  # Redirect to home page after login
+LOGOUT_REDIRECT_URL = LOGIN_URL  # Redirect to login page after logout
 
 # Custom User Model
 AUTH_USER_MODEL = "tasks.CustomUser"

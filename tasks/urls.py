@@ -1,17 +1,41 @@
 from django.urls import path
 from django.contrib.auth import views as auth_views
-from tasks import views
+from . import views
+from .constants import Urls, Templates  # adjust import path if needed
 
+# URL patterns for the tasks application
 urlpatterns = [
-    path('register/', views.RegisterView.as_view(), name='register'),
-    path('login/', auth_views.LoginView.as_view(
-        template_name='login.html',
-        redirect_authenticated_user=True # Redirects authenticated users to the tasks page        
+    # Public URLs
+    path(
+        'register/',
+        views.RegisterView.as_view(),
+        name=Urls.AUTH.REGISTER
     ),
-         name='login'
+    path(
+        'login/',
+        auth_views.LoginView.as_view(
+            template_name=Templates.AUTH.LOGIN,
+            redirect_authenticated_user=True
+        ),
+        name=Urls.AUTH.LOGIN
     ),
-    path('logout/', auth_views.LogoutView.as_view(
-        next_page='login'  # Redirects to login page after logout
-    ), name='logout'),
-    path('', views.list_task, name='tasks'),
+    path(
+        'logout/',
+        auth_views.LogoutView.as_view(),
+        name=Urls.AUTH.LOGOUT # You can make this a constant too, if reused
+    ),
+
+    # Protected URLs
+    path(
+        '',
+        views.HomeView.as_view(),
+        name=Urls.PROTECTED.HOME
+    ),
+
+    # Task URLs
+    path(
+        'tasks/',
+        views.ListTaskView.as_view(),
+        name=Urls.PROTECTED.TASKS # You can also define this in a _TaskUrls class
+    ),
 ]

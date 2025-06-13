@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Hub | TaskTodo{% endblock %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+{% endblock %}
+
+{% block header %}
+    <header>
+        <h1>Welcome to TaskTodo</h1>
+        <p>Your personal task management hub</p>
+    </header>
+{% endblock %}
+
+{% block nav %}
+    <nav>
+        <ul>
+            <li><a href="{% url 'tasks' %}">Tasks</a></li>
+            <li>
+                <form id="logout-form" method="post" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <button type="submit">Logout</button>
+                </form>
+            </li>
+        </ul>
+    </nav>
+{% endblock %}
+
+{% block content %}
+    <div class="hub-content">
+        <h2>Your Tasks Overview</h2>
+        <!-- You can add more content here, like a summary of tasks or statistics -->
+    </div>
+{% endblock %}
+{% block footer %}
+    <footer>
+        <p>&copy; 2025 TaskTodo. All rights reserved.</p>
+    </footer>
+{% endblock %}

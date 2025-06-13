@@ -1,0 +1,9 @@
+.hub-content {
+    padding: 20px;
+    background-color: var(--rc-background-primary);
+    color: var(--rc-background-foreground);
+    font-size: 14px;
+    line-height: 1.5;
+    border: 1px solid var(--rc-border-color);
+    border-radius: 5px;
+}
