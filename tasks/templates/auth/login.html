@@ -21,7 +21,7 @@
             <small>Welcome back! Please enter your details.</small>
         </header>
 
-        <form class="user-registration-form" method="post" action="{% url 'login' %}">
+        <form class="user-registration-form" method="post">
             {% csrf_token %}
 
             <!-- Display non-field errors like "Invalid credentials" -->
@@ -48,7 +48,7 @@
 
             <button type="submit">Login</button>
             <div class="form-footer">
-                <p>Don't have an account? <a href="{% url 'register' %}">Sign Up</a></p>
+                <p>Don't have an account? <a href="{% url routes.AUTH.REGISTER.url_name %}">Sign Up</a></p>
             </div>
         </form>
     </div>

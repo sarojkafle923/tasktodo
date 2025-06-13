@@ -1,27 +1,39 @@
-# Template paths for the application
-class _ProtectedTemplates:
-    HOME = 'protected/home.html'
-    TASKS = 'protected/tasks.html'
-    
-class _AuthTemplates:
-    LOGIN = 'auth/login.html'
-    REGISTER = 'auth/register.html'
+from enum import Enum
 
-class Templates:
-    AUTH = _AuthTemplates()
-    PROTECTED = _ProtectedTemplates()
+class _AuthRoutes(Enum):
+    LOGIN = ('login', 'auth/login.html')
+    REGISTER = ('register', 'auth/register.html')
+    LOGOUT = ('logout', None)
 
+    def __init__(self, url_name, template_path):
+        self.url_name = url_name
+        self.template_path = template_path
 
-# URL patterns for the application
-class _ProtectedUrls:
-    HOME = 'home'
-    TASKS = 'tasks'
+class _TasksRoute(Enum):
+    LIST = ('task_list', 'protected/tasks.html')
 
-class _AuthUrls:
-    LOGIN = 'login'
-    REGISTER = 'register'
-    LOGOUT = 'logout'
+    def __init__(self, url_name, template_path):
+        self.url_name = url_name
+        self.template_path = template_path
 
-class Urls:
-    AUTH = _AuthUrls()
-    PROTECTED = _ProtectedUrls()
+class _HomeRoute(Enum):
+    HOME = ('home', 'protected/home.html')
+
+    def __init__(self, url_name, template_path):
+        self.url_name = url_name
+        self.template_path = template_path
+
+class _PublicRoutes:
+    LOGIN = _AuthRoutes.LOGIN
+    REGISTER = _AuthRoutes.REGISTER
+    LOGOUT = _AuthRoutes.LOGOUT
+
+class _ProtectedRoutes:
+    HOME = _HomeRoute.HOME
+
+    # Tasks paths
+    TASKS = _TasksRoute.LIST
+
+class RouteGroup:
+    AUTH = _PublicRoutes()
+    PROTECTED = _ProtectedRoutes()

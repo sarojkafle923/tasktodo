@@ -17,9 +17,9 @@
 {% block nav %}
     <nav>
         <ul>
-            <li><a href="{% url 'tasks' %}">Tasks</a></li>
+            <li><a href={% url routes.PROTECTED.TASKS.LIST.url_name %}>Tasks</a></li>
             <li>
-                <form id="logout-form" method="post" action="{% url 'logout' %}">
+                <form id="logout-form" method="post" action="{% url routes.AUTH.LOGOUT.url_name %}">
                     {% csrf_token %}
                     <button type="submit">Logout</button>
                 </form>

@@ -1,41 +1,16 @@
 from django.urls import path
 from django.contrib.auth import views as auth_views
-from . import views
-from .constants import Urls, Templates  # adjust import path if needed
+
+from tasktodo.settings import LOGIN_URL
+from tasks import views
+from .constants import RouteGroup  # adjust import path if needed
 
 # URL patterns for the tasks application
 urlpatterns = [
     # Public URLs
-    path(
-        'register/',
-        views.RegisterView.as_view(),
-        name=Urls.AUTH.REGISTER
-    ),
-    path(
-        'login/',
-        auth_views.LoginView.as_view(
-            template_name=Templates.AUTH.LOGIN,
-            redirect_authenticated_user=True
-        ),
-        name=Urls.AUTH.LOGIN
-    ),
-    path(
-        'logout/',
-        auth_views.LogoutView.as_view(),
-        name=Urls.AUTH.LOGOUT # You can make this a constant too, if reused
-    ),
-
-    # Protected URLs
-    path(
-        '',
-        views.HomeView.as_view(),
-        name=Urls.PROTECTED.HOME
-    ),
-
-    # Task URLs
-    path(
-        'tasks/',
-        views.ListTaskView.as_view(),
-        name=Urls.PROTECTED.TASKS # You can also define this in a _TaskUrls class
-    ),
+    path('register/', views.RegisterView.as_view(), name=RouteGroup.AUTH.REGISTER.url_name),
+    path(LOGIN_URL, auth_views.LoginView.as_view(template_name=RouteGroup.AUTH.LOGIN.template_path), name=RouteGroup.AUTH.LOGIN.url_name),
+    path('logout/', auth_views.LogoutView.as_view(), name=RouteGroup.AUTH.LOGOUT.url_name),
+    path('', views.HomeView.as_view(), name=RouteGroup.PROTECTED.HOME.url_name),
+    path('tasks', views.ListTaskView.as_view(), name=RouteGroup.PROTECTED.TASKS.LIST.url_name),
 ]

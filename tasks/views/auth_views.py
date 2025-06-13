@@ -1,8 +1,9 @@
 from django.urls import reverse_lazy
 from django.views.generic import FormView
 from django.contrib import messages
+
+from tasks.constants import RouteGroup
 from tasks.forms import CustomUserCreationForm
-from tasks.constants import Templates
 from tasktodo import settings
 
 class RegisterView(FormView):
@@ -11,7 +12,7 @@ class RegisterView(FormView):
     This view handles the registration form, validates the input,
     and creates a new user if the form is valid.
     """
-    template_name = Templates.AUTH.REGISTER
+    template_name = RouteGroup.AUTH.REGISTER.template_path
     form_class = CustomUserCreationForm
     success_url = reverse_lazy(settings.LOGIN_URL)  
     
