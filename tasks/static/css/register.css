@@ -1,7 +1,8 @@
 /* USED BY'
 * These styling is used by following html files:
-* - tasks/templates/register.html
-* - tasks/templates/login.html
+* - tasks/templates/auth/register.html
+* - tasks/templates/auth/login.html
+* - tasks/templates/protected/home.html
 */
 
 #register-page {

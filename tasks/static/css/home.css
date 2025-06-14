@@ -8,6 +8,21 @@ body {
         "navbar footer";
 }
 
+header .task-btn button {
+    padding: 0.75rem;
+    background-color: var(--rc-primary-primary);
+    color: var(--rc-primary-foreground);
+    font-weight: 500;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+header .task-btn button:hover {
+    background-color: var(--rc-primary-900);
+}
+
 main {
     grid-area: content;
     padding: 1rem;

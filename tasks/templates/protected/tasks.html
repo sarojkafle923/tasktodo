@@ -1,2 +1,61 @@
 {% extends './home.html' %}
 {% block title %}List | Tasks{% endblock %}
+
+{% block nav %}
+{% include './navbar.html' %}
+{% endblock %}
+
+{% block header %}
+    <header id="page-header">
+        <div class="header-title">
+            <h1>Tasks</h1>
+            <p>Your personal task management hub.</p>
+        </div>
+        <div class="header-actions task-btn">
+            <button onclick="openPopup()">Add Task</button>
+        </div>
+    </header>
+{% endblock %}
+
+{% block content %}
+ <div id="popupCard">
+  <div>
+    <span class="closingCross" onclick="closePopup()">&times;</span>
+    <h2>Add New Task</h2>
+    <form class="user-registration-form" id="taskForm" action="" method="post">
+        <div class="insideForm">
+            <label for="task">Task:</label>
+            <input type="text" name="task" required>
+        </div>
+        <div class="insideForm">
+            <label for="description">Description:</label>
+            <input type="text" name="description">
+        </div>    
+        <div class="insideForm">
+            <label for="start_date">Start Date:</label>
+            <input type="datetime-local" name="start_date">
+        </div>
+        <div class="insideForm">
+            <label for="end_date">End Date:</label>
+            <input type="datetime-local" name="end_date">
+        </div>
+        
+        <br><br>
+        <section class="formBtns">
+            <button onclick="closePopup()">Cancel</button>
+            <input type="submit" value="Submit">
+        </section>
+    </form>
+  </div>
+</div>
+
+<script>
+  function openPopup() {
+    document.getElementById('popupCard').style.display = 'flex';
+  }
+
+  function closePopup() {
+    document.getElementById('popupCard').style.display = 'none';
+  }
+</script>
+{% endblock %}
