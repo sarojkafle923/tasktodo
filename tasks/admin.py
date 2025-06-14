@@ -5,7 +5,7 @@ from tasks.models import Task
 
 # Define the admin interface for the Task model.
 class TaskAdmin(admin.ModelAdmin):
-    list_display = ('title', 'user', 'completed', 'created_at')
+    list_display = ('title', 'user', 'completed', 'start_date', 'end_date', 'created_at')
     list_filter = ('completed', 'user')
     search_fields = ('title', 'description')
 

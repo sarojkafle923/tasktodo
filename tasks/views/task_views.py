@@ -7,7 +7,7 @@ from tasks.models import Task
 
 class ListTaskView(LoginRequiredMixin, View):
     tasks = Task.objects.all()
-    
+
     # Build a plain text response from tasks
     response_text = "Tasks List:\n"
     for task in tasks:
