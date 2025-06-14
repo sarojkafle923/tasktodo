@@ -1,0 +1,81 @@
+<!-- templates/login.html -->
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Login{% endblock %}
+
+<!-- Add styling similar to your register page if you want -->
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'css/register.css' %}">
+{% endblock %}
+
+{% block header %}{% endblock %}
+{% block nav %}{% endblock %}
+
+{% block content %}
+<div id="register-page"> <!-- You can reuse or create a new style -->
+    <div class="register-form-container">
+        <header>
+            <h1>Login to Your Account</h1>
+            <small>Welcome back! Please enter your details.</small>
+        </header>
+
+        <form class="user-registration-form" method="post">
+            {% csrf_token %}
+
+            <!-- Display non-field errors like "Invalid credentials" -->
+            {% if form.non_field_errors %}
+                <div>
+                    {% for error in form.non_field_errors %}
+                        <p class="error-message">{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <div>
+                <!-- Django uses the username approach for authentication; internally -->
+                <label for="{{ form.username.id_for_label }}">Email</label>
+                {{ form.username }}
+                {{ form.username.errors }}
+            </div>
+
+            <div>
+                <label for="{{ form.password.id_for_label }}">Password</label>
+                {{ form.password }}
+                {{ form.password.errors }}
+            </div>
+
+            <button type="submit">Login</button>
+            <div class="form-footer">
+                <p>Don't have an account? <a href="{% url routes.AUTH.REGISTER.url_name %}">Sign Up</a></p>
+            </div>
+        </form>
+    </div>
+    <!-- You can include your image container div here too if you like -->
+    <div class="register-image-container">
+         <div class="gradient-text-logo">
+            <span>T</span>
+            <span>O</span>
+            <span>D</span>
+            <span>O</span>
+        </div>
+         <div class="svg-logo">
+            <svg width="100" height="100" viewBox="0 0 100 100" style="margin-bottom: 15px;">
+                <defs>
+                    <linearGradient id="grad3" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#fa709a;stop-opacity:1" ></stop>
+                        <stop offset="50%" style="stop-color:#fee140;stop-opacity:1" ></stop>
+                        <stop offset="100%" style="stop-color:#42a5f5;stop-opacity:1" ></stop>
+                    </linearGradient>
+                </defs>
+                <rect x="10" y="10" width="80" height="80" rx="20" fill="url(#grad3)" ></rect>
+                <text x="50" y="70" font-family="Arial, sans-serif" font-size="60" font-weight="bold"
+                    text-anchor="middle" fill="white">T</text>
+            </svg>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block footer %}{% endblock %}

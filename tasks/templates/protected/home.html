@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Hub | TaskTodo{% endblock %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/header.css' %}">
+{% endblock %}
+
+{% block nav %}
+    {% include './navbar.html' %}
+{% endblock %}
+
+{% block header %}
+    {% include './header.html' %}
+{% endblock %}
+
+{% block content %}
+    <div class="feature-unavailable">
+       <div class="coming-soon-container">
+            <div class="icon-container">
+                <div class="rocket">🚀</div>
+            </div>
+
+            <h1 class="title">Coming Soon</h1>
+            <p class="subtitle">
+                We're working hard to bring you something amazing.
+                This feature is currently in development and will be available soon!
+            </p>
+
+            <div class="progress-container">
+                <div class="progress-bar"></div>
+            </div>
+            <div class="progress-text">75% Complete</div>
+
+            <div class="status-badges">
+                <span class="badge">🔧 In Development</span>
+                <span class="badge">🎨 Design Complete</span>
+                <span class="badge">⚡ Testing Phase</span>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block footer %}
+    <footer>
+        <p>&copy; 2025 TaskTodo. All rights reserved.</p>
+    </footer>
+{% endblock %}

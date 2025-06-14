@@ -1,0 +1,178 @@
+.navbar {
+    grid-area: navbar;
+    background: linear-gradient(200deg, #a8caba 0%, #5d4e75 25%, #b16fa4 50%, #f3d2c1 75%, #fef9d7 100%);
+    display: flex;
+    flex-direction: column;
+    padding: 2rem 0;
+    color: white;
+    height: 100%;
+    position: fixed;
+    width: 220px;
+    top: 0;
+    bottom: 0;
+    left: 0;
+}
+.navbar .svg-logo {
+    display: flex;
+    justify-content: center;
+}
+
+.navbar-list {
+   list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+.navbar-item {
+    display: flex;
+    padding: 0;  /* Remove padding from item */
+    margin: 0.25rem 0;
+    position: relative;
+    cursor: pointer;
+}
+
+
+.navbar-item::before {
+    font-family: 'Material Icons', sans-serif;
+    content: attr(data-icon);
+    font-size: 20px;
+    transition: all 0.3s ease;
+    position: absolute;
+    left: 1.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none; /* Make sure icon doesn't interfere with clicks */
+}
+
+.navbar-item.active::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 4px;
+    background-color: var(--rc-accent-primary);
+    border-radius: 2px 0 0 2px;
+}
+
+.navbar-link,
+.navbar-logout-btn {
+    width: 100%;
+    display: block;
+    padding: 1rem 1.5rem 1rem 3.5rem; /* Add left padding to make room for icon */
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 16px;
+    color: white;
+    border-radius: 0 8px 8px 0;
+}
+
+.navbar-item.active,
+.navbar-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.navbar-link:hover,
+.navbar-logout-btn:hover {
+    background: transparent; /* Remove background from link to avoid conflict */
+}
+
+.navbar-logout-btn {
+    border: none;
+    background-color: transparent;
+    text-align: left;
+    cursor: pointer;
+}
+
+.navbar-item.navbar-logout {
+    color: var(--rc-danger-800);
+    margin-top: auto;
+}
+
+.navbar-logout-btn {
+    color: var(--rc-danger-800);
+}
+
+.navbar-toggle {
+    display: none;
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    background: var(--rc-primary-primary);
+    color: white;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 1001;
+    box-shadow: var(--shadow-short);
+    transition: all 0.3s ease;
+}
+
+.navbar-toggle:hover {
+    background: var(--rc-primary-800);
+    transform: scale(1.05);
+}
+
+/* Body class for when menu is open */
+body.menu-open {
+    overflow: hidden;
+}
+
+.navbar.navbar-expanded .navbar-toggle {
+    position: absolute;
+    top: 1rem;
+    left: unset;
+    right: 1rem;
+    background-color: transparent;
+}
+
+/* Media query for mobile view */
+@media (max-width: 768px) {
+    /* Fix position of navbar toggle button */
+    .navbar-toggle {
+        display: flex;
+        position: fixed; /* Changed from absolute to fixed */
+        top: 1rem;
+        left: 1rem;
+        z-index: 1002; /* Increased z-index to ensure visibility */
+        background: var(--rc-primary-primary);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+
+    /* Make sure the navbar appears above content */
+    .navbar {
+        position: fixed;
+        left: -280px;
+        top: 0;
+        bottom: 0;
+        width: 250px;
+        z-index: 1001;
+        transition: left 0.3s ease;
+    }
+
+    /* Adjust main content to make room for hamburger */
+    main {
+        padding-top: 4rem; /* Increased padding to make room for the hamburger */
+        width: 100%;
+        position: relative;
+        margin-left: 0;
+    }
+
+    .navbar.navbar-expanded {
+        padding-top: 4rem;
+    }
+}
+
+/* Adjustments for very small screens */
+@media (max-width: 480px) {
+    .navbar {
+        width: 85%;
+        max-width: 280px;
+    }
+}

@@ -28,7 +28,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -56,15 +55,15 @@ ROOT_URLCONF = 'tasktodo.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [
-            os.path.join(BASE_DIR, 'templates')
-        ],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.debug',
+                'tasks.context_processors.routes_context',
             ],
         },
     },
@@ -127,3 +126,11 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Configure the login and logout URLs
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'home'  # Redirect to home page after login
+LOGOUT_REDIRECT_URL = LOGIN_URL  # Redirect to login page after logout
+
+# Custom User Model
+AUTH_USER_MODEL = "tasks.CustomUser"
