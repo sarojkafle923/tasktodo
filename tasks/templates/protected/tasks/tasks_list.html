@@ -1,0 +1,41 @@
+{% extends 'protected/home.html' %}
+{% block title %}Task List | Tasks{% endblock %}
+{%  block addon_head %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/tasks/task-list.css' %}">
+{% endblock %}
+{% block header %}
+    <header id="page-header">
+        <div class="header-title">
+            <h1>Tasks</h1>
+            <p>Manage your tasks efficiently.</p>
+        </div>
+        <div class="task-actions">
+            <button id="add-task-btn" class="btn btn-icon btn-primary" data-icon="add">
+                Add Task
+            </button>
+        </div>
+    </header>
+{% endblock %}
+{% block content %}
+<div class="task-page">
+    <div class="container">
+        <div class="task-sections-wrapper">
+            {% for section in task_sections %}
+                <div id="tasks-{{ section.key }}-section" 
+                     class="tasks-section" 
+                     data-section="{{ section.key }}">
+                    {% include 'protected/tasks/partials/task_section.html' with section_data=section %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    
+    <div class="container">
+        {% block tasks_calendar_view %}{% endblock %}
+    </div>
+</div>
+{% endblock %}
+{% block extra_js %}
+    <script src="{% static 'js/tasks/task-list.js' %}"></script>
+{% endblock %}

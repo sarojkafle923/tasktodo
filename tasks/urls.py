@@ -12,5 +12,8 @@ urlpatterns = [
     path('login/', auth_views.LoginView.as_view(template_name=RouteGroup.AUTH.LOGIN.template_path, redirect_authenticated_user=True), name=RouteGroup.AUTH.LOGIN.url_name),
     path('logout/', auth_views.LogoutView.as_view(), name=RouteGroup.AUTH.LOGOUT.url_name),
     path('', views.HomeView.as_view(), name=RouteGroup.PROTECTED.HOME.url_name),
-    path('tasks/', views.ListTaskView.as_view(), name=RouteGroup.PROTECTED.TASKS.LIST.url_name),
+
+    # Tasks URLs
+    path('tasks/', views.TaskListView.as_view(), name=RouteGroup.PROTECTED.TASKS.LIST.url_name),
+    path('tasks/add/', views.TaskCreateView.as_view(), name=RouteGroup.PROTECTED.TASKS.ADD.url_name),
 ]

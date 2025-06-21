@@ -1,0 +1,103 @@
+{% load time_filters %}
+
+{% if task_list.object_list %}
+    <div class="task-grid" role="list">
+        {% for task in task_list.object_list %}
+            <article class="task-card" role="listitem" data-task-id="{{ task.id }}">
+                <header class="task-header">
+                    <h4 class="task-title">{{ task.title }}</h4>
+                    <time class="task-due-date"
+                          datetime="{{ task.end_date|date:'c' }}"
+                          title="{{ task.end_date|date:'F d, Y \a\t g:i A' }}">
+                        {% if task.end_date > now %}
+                            Due in {{ task.end_date|humanize_timedelta:now }}
+                        {% else %}
+                            Overdue by {{ task.end_date|humanize_timedelta:now }}
+                        {% endif %}
+                    </time>
+                </header>
+
+                {% if task.description %}
+                    <div class="task-description">
+                        {{ task.description|truncatewords:20 }}
+                    </div>
+                {% endif %}
+
+                <footer class="task-footer">
+                    <div class="task-meta">
+                        <span class="task-status task-status--{{ task.status|lower }}">
+                            {{ task.get_status_display }}
+                        </span>
+                        {% if task.priority %}
+                            <span class="task-priority task-priority--{{ task.priority|lower }}">
+                                {{ task.get_priority_display }}
+                            </span>
+                        {% endif %}
+                    </div>
+
+                    <div class="task-actions">
+                        <a href="#"
+                           class="btn btn-sm btn-outline-primary"
+                           aria-label="View task details for {{ task.title }}">
+                            View
+                        </a>
+                        <a href="{% url 'task_add' %}"
+                           class="btn btn-sm btn-outline-secondary"
+                           aria-label="Edit task {{ task.title }}">
+                            Edit
+                        </a>
+                    </div>
+                </footer>
+            </article>
+        {% endfor %}
+    </div>
+{% else %}
+    <div class="empty-state" role="status">
+        <div class="empty-state-icon">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 11H5a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2h-4"></path>
+                <path d="M9 11V9a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"></path>
+            </svg>
+        </div>
+        <p class="empty-state-message">{{ empty_message }}</p>
+        <a href="#" class="btn btn-primary">
+            Create New Task
+        </a>
+    </div>
+{% endif %}
+
+<!-- Pagination -->
+{% if task_list.paginator.num_pages > 1 %}
+    <nav class="pagination-nav" aria-label="Task pagination for {{ section }}">
+        <div class="pagination-wrapper">
+            {% if task_list.has_previous %}
+                <a href="#"
+                   class="pagination-link btn btn-outline-secondary"
+                   data-section="{{ section }}"
+                   data-page="{{ task_list.previous_page_number }}"
+                   aria-label="Go to previous page">
+                    <span aria-hidden="true">&laquo;</span>
+                    Previous
+                </a>
+            {% endif %}
+
+            <span class="pagination-info">
+                Page {{ task_list.number }} of {{ task_list.paginator.num_pages }}
+                <span class="sr-only">
+                    , showing {{ task_list.object_list|length }} of {{ task_list.paginator.count }} tasks
+                </span>
+            </span>
+
+            {% if task_list.has_next %}
+                <a href="#"
+                   class="pagination-link btn btn-outline-secondary"
+                   data-section="{{ section }}"
+                   data-page="{{ task_list.next_page_number }}"
+                   aria-label="Go to next page">
+                    Next
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            {% endif %}
+        </div>
+    </nav>
+{% endif %}

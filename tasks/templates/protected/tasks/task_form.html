@@ -1,0 +1,22 @@
+{% extends 'protected/tasks/tasks_list.html' %}
+{% block title %}Task Form | Tasks{% endblock %}
+{% block addon_head %}
+    {% load static %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'css/tasks/task-form.css' %}">
+{% endblock %}
+{%  block content %}
+    {{ block.super }}
+    <div id="task-modal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" id="task-modal-close">&times;</span>
+
+            <h2>Add Task</h2>
+            <form id="task-form" method="post" action="{% url 'task_add' %}">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary">Save</button>
+            </form>
+        </div>
+    </div>
+{%  endblock %}

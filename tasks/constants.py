@@ -10,7 +10,8 @@ class _AuthRoutes(Enum):
         self.template_path = template_path
 
 class _TasksRoute(Enum):
-    LIST = ('task_list', 'protected/tasks.html')
+    LIST = ('task_list', 'protected/tasks/tasks_list.html')
+    ADD = ('task_add', 'protected/tasks/task_form.html')
 
     def __init__(self, url_name, template_path):
         self.url_name = url_name
@@ -33,6 +34,7 @@ class _ProtectedRoutes:
 
     # Tasks paths
     TASKS = _TasksRoute.LIST
+    TASK_ADD = _TasksRoute.ADD
 
 class RouteGroup:
     AUTH = _PublicRoutes()

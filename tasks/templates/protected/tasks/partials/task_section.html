@@ -1,0 +1,38 @@
+{% load time_filters %}
+
+<div class="tasks-section-header">
+    <h3 class="section-title">
+        {% if section_data.key == 'today' %}
+            Today
+        {% elif section_data.key == 'tomorrow' %}
+            Tomorrow
+        {% elif section_data.key == 'upcoming' %}
+            Upcoming
+        {% else %}
+            {{ section_data.key|title }}
+        {% endif %}
+    </h3>
+
+    {% if section_data.page_obj.paginator.count > 0 %}
+        <span class="task-count">
+            {{ section_data.page_obj.paginator.count }} task{{ section_data.page_obj.paginator.count|pluralize }}
+        </span>
+    {% endif %}
+</div>
+
+<div id="{{ section_data.key }}-task-items" class="task-items-container">
+    <!-- Loading spinner -->
+    <div class="loader-container"
+         id="{{ section_data.key }}-loader-container"
+         style="display: none;"
+         aria-label="Loading tasks">
+        <div class="spinner" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+
+    <!-- Task content -->
+    <div class="task-content" id="{{ section_data.key }}-content">
+        {% include 'protected/tasks/partials/task_list_content.html' with task_list=section_data.page_obj section=section_data.key page_obj=section_data.page_obj empty_message=section_data.empty_message now=now %}
+    </div>
+</div>

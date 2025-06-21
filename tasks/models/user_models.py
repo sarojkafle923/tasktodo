@@ -30,6 +30,20 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     objects = CustomUserManager()
     
     USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['first_name', 'last_name']
 
-    def __str__(self):
+    class Meta:
+        verbose_name = 'User'
+        verbose_name_plural = 'Users'
+        ordering = ['-date_joined']
+
+    def __str__(self) -> str:
         return self.email
+
+    def get_full_name(self) -> str:
+        """Return the user's full name."""
+        return f"{self.first_name} {self.last_name}".strip()
+
+    def get_short_name(self) -> str:
+        """Return the user's short name."""
+        return self.first_name
