@@ -152,7 +152,7 @@ class TaskListView(LoginRequiredMixin, ListView):
             return JsonResponse({'error': f'Template rendering failed: {str(e)}'}, status=500)
 
 
-class TaskCreateView(LoginRequiredMixin, CreateView):
+class   TaskCreateView(LoginRequiredMixin, CreateView):
     """View for creating new tasks"""
 
     model = Task
